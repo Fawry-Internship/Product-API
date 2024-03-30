@@ -1,5 +1,7 @@
-package com.example.product.product;
+package com.example.fawry.controller;
 
+import com.example.fawry.model.Product;
+import com.example.fawry.service.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,11 +1,11 @@
-package com.example.product.product;
+package com.example.fawry.service;
 
+import com.example.fawry.model.Product;
+import com.example.fawry.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

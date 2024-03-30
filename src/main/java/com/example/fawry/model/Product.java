@@ -1,4 +1,4 @@
-package com.example.product.product;
+package com.example.fawry.model;
 
 import jakarta.persistence.*;
 
@@ -25,7 +25,9 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private Long category_id;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category_id;
     private String brand;
     private String image_url;
     private LocalDate created_at;
@@ -39,7 +41,7 @@ public class Product {
                    String name,
                    String description,
                    Double price,
-                   Long category_id,
+                   Category category_id,
                    String brand,
                    String image_url) {
 
@@ -59,7 +61,7 @@ public class Product {
                    String name,
                    String description,
                    Double price,
-                   Long category_id,
+                   Category category_id,
                    String brand,
                    String image_url,
                    LocalDate created_at,
@@ -116,11 +118,11 @@ public class Product {
         this.price = price;
     }
 
-    public Long getCategory_id() {
+    public Category getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(Long category_id) {
+    public void setCategory_id(Category category_id) {
         this.category_id = category_id;
     }
 
