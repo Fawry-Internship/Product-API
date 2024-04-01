@@ -1,32 +1,29 @@
 package com.example.fawry.controller;
 
-import com.example.fawry.model.Category;
+import com.example.fawry.entity.Category;
+import com.example.fawry.model.category.CategoryRequestDTO;
+import com.example.fawry.model.category.CategoryResponseDTO;
 import com.example.fawry.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "fawry/category")
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @Autowired
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
-
     @GetMapping
-    public List<Category> getAll() {
-        return categoryService.getAll();
+    public List<CategoryResponseDTO> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 
     @PostMapping
-    public Category add(@RequestBody Category Category){
-        return categoryService.add(Category);
+    public Category addNewCategory(@RequestBody CategoryRequestDTO categoryRequestDTO){
+        return categoryService.addNewCategory(categoryRequestDTO);
 
     }
 

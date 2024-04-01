@@ -1,6 +1,6 @@
 package com.example.fawry.repository;
 
-import com.example.fawry.model.Product;
+import com.example.fawry.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

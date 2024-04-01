@@ -1,8 +1,8 @@
 package com.example.fawry.controller;
 
-import com.example.fawry.model.Product;
-import com.example.fawry.service.ProductServices;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.fawry.entity.Product;
+import com.example.fawry.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -10,29 +10,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "fawry/product")
+@RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductServices productServices;
-
-    @Autowired
-    public ProductController(ProductServices productServices) {
-        this.productServices = productServices;
-    }
-
+    private final ProductService productService;
 
     @GetMapping
     public List<Product> getProducts() {
-        return productServices.getProducts();
+        return productService.getProducts();
     }
 
     @PostMapping
     public void registerNewProduct(@RequestBody Product product){
-        productServices.addNewProduct(product);
+        productService.addNewProduct(product);
     }
 
     @DeleteMapping(path = "{productId}")
     public void deleteProduct(@PathVariable("productId")Long productId){
-        productServices.deleteProduct(productId);
+        productService.deleteProduct(productId);
     }
 
     @PutMapping(path = "{productId}")
@@ -40,6 +35,6 @@ public class ProductController {
             @PathVariable("productId") Long productId,
             @RequestParam(required = false) Double price,
             @RequestParam(required = false) String image_url) {
-        productServices.updateProduct(productId, price, image_url);
+        productService.updateProduct(productId, price, image_url);
     }
 }
