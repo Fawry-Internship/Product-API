@@ -52,4 +52,8 @@ public class CategoryServiceImpl implements CategoryService {
         log.info("This new Category added successFully :{}", newCategory);
         return newCategory;
     };
+
+    public  Optional<Category> getCategoryByName(String name){
+        return categoryRepository.findCategoryByName(name);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.fawry.controller;
 
 import com.example.fawry.entity.Product;
+import com.example.fawry.model.product.ProductRequestDTO;
+import com.example.fawry.model.product.ProductResponseDTO;
 import com.example.fawry.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,13 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getProducts() {
+    public List<ProductResponseDTO> getAllProducts() {
         return productService.getProducts();
     }
 
     @PostMapping
-    public void registerNewProduct(@RequestBody Product product){
-        productService.addNewProduct(product);
+    public void registerNewProduct(@RequestBody ProductRequestDTO productRequestDTO){
+        productService.addNewProduct(productRequestDTO);
     }
 
     @DeleteMapping(path = "{productId}")
@@ -30,11 +32,8 @@ public class ProductController {
         productService.deleteProduct(productId);
     }
 
-    @PutMapping(path = "{productId}")
-    public void updateProduct(
-            @PathVariable("productId") Long productId,
-            @RequestParam(required = false) Double price,
-            @RequestParam(required = false) String image_url) {
-        productService.updateProduct(productId, price, image_url);
+    @PutMapping
+    public void updateProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+        productService.updateProduct(productRequestDTO);
     }
 }
