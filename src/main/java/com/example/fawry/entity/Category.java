@@ -2,9 +2,7 @@ package com.example.fawry.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -22,5 +20,7 @@ public class Category {
     private String description;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY ,mappedBy = "category")
     @JsonIgnore
+    @ToString.Exclude
     private List<Product> products;
+
 }

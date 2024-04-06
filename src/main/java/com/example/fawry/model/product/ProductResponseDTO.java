@@ -1,31 +1,24 @@
-package com.example.fawry.entity;
+package com.example.fawry.model.product;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.example.fawry.entity.Category;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
-@Table
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@AllArgsConstructor
+public class ProductResponseDTO {
     private Long id;
     private String code;
     private String name;
     private String description;
     private Double price;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private String category_name;
     private String brand;
     private String image_url;
     private LocalDate created_at;
     private LocalDate updated_at;
-
-
 }
