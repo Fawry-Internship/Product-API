@@ -9,7 +9,9 @@ import java.util.List;
 public interface ProductService {
 
     List<ProductResponseDTO> getProducts();
-    Product addNewProduct(ProductRequestDTO productRequestDTO);
-    void deleteProduct(Long productId);
-    void updateProduct(ProductRequestDTO productRequestDTO);
+    String addNewProduct(ProductRequestDTO productRequestDTO);
+    String deleteProduct(Long productId);
+    String updateProduct(ProductRequestDTO productRequestDTO);
+
+    boolean checkProductAvailability(String productCode);
 }

@@ -5,6 +5,8 @@ import com.example.fawry.model.category.CategoryRequestDTO;
 import com.example.fawry.model.category.CategoryResponseDTO;
 import com.example.fawry.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +19,13 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public List<CategoryResponseDTO> getAllCategories() {
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryResponseDTO>> getAllCategories() {
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
     @PostMapping
-    public Category addNewCategory(@RequestBody CategoryRequestDTO categoryRequestDTO){
-        return categoryService.addNewCategory(categoryRequestDTO);
+    public ResponseEntity<Category> addNewCategory(@RequestBody CategoryRequestDTO categoryRequestDTO){
+        return new ResponseEntity<>(categoryService.addNewCategory(categoryRequestDTO), HttpStatus.CREATED);
 
     }
 

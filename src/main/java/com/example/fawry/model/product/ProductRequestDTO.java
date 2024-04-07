@@ -1,24 +1,34 @@
 package com.example.fawry.model.product;
 
-import com.example.fawry.entity.Category;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequestDTO {
+    @NotBlank(message = "Code is required")
     private String code;
+
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotBlank(message = "Description is required")
     private String description;
+
+    @NotNull(message = "Price is required")
+    @Positive(message = "Price must be positive")
     private Double price;
-    private String category_name;
+
+    @NotBlank(message = "Category name is required")
+    private String categoryName;
+
     private String brand;
-    private String image_url;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+
+    private String imageUrl;
 }

@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
         return allProductResponseDTOS;
     }
 
-    public Product addNewProduct(ProductRequestDTO productRequestDTO) {
+    public String addNewProduct(ProductRequestDTO productRequestDTO) {
         log.info("You want to add This new product : {}", productRequestDTO);
         Optional<Product> productByName = productRepository.findProductByCode(productRequestDTO.getCode());
         System.out.println(productRequestDTO);
@@ -62,24 +62,27 @@ public class ProductServiceImpl implements ProductService {
             throw new RecordNotFoundException("This Category Not Exist!");
         }
         newProduct.setCategory(categoryByName.get());
+        newProduct.setCreated_at(LocalDate.now());
+        newProduct.setUpdated_at(LocalDate.now());
 
         productRepository.save(newProduct);
         log.info("This new Product added successFully :{}", newProduct);
-        return newProduct;
+        return "success";
     };
 
-    public void deleteProduct(Long productId) {
+    public String deleteProduct(Long productId) {
         boolean exists = productRepository.existsById(productId);
         if (!exists){
             throw new RecordNotFoundException("Could not find this Product");
         }
         productRepository.deleteById(productId);
+        return "success";
     }
 
     @Transactional
-    public void updateProduct(ProductRequestDTO productRequestDTO) {
+    public String updateProduct(ProductRequestDTO productRequestDTO) {
         Product product = productRepository.findProductByCode(productRequestDTO.getCode())
-                .orElseThrow(() -> new IllegalStateException("Could not find this Product"));
+                .orElseThrow(() -> new RecordNotFoundException("This Category Not Exist!"));
 
         if(productRequestDTO.getPrice() != null && !Objects.equals(product.getPrice(),productRequestDTO.getPrice())){
             product.setPrice(productRequestDTO.getPrice());
@@ -103,5 +106,11 @@ public class ProductServiceImpl implements ProductService {
 
         productRepository.save(product);
         log.info("Product has been updated successfully:{}", product);
+        return "success";
+    }
+
+    @Override
+    public boolean checkProductAvailability(String productCode) {
+        return productRepository.existsByCode(productCode);
     }
 }

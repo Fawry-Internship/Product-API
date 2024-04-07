@@ -5,6 +5,8 @@ import com.example.fawry.model.product.ProductRequestDTO;
 import com.example.fawry.model.product.ProductResponseDTO;
 import com.example.fawry.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,22 +20,28 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<ProductResponseDTO> getAllProducts() {
-        return productService.getProducts();
+    public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
+        return ResponseEntity.ok(productService.getProducts());
     }
 
     @PostMapping
-    public void registerNewProduct(@RequestBody ProductRequestDTO productRequestDTO){
-        productService.addNewProduct(productRequestDTO);
+    public ResponseEntity<String> registerNewProduct(@RequestBody ProductRequestDTO productRequestDTO){
+        return new ResponseEntity<>(productService.addNewProduct(productRequestDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "{productId}")
-    public void deleteProduct(@PathVariable("productId")Long productId){
-        productService.deleteProduct(productId);
+    public ResponseEntity<String> deleteProduct(@PathVariable("productId")Long productId){
+        return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.ACCEPTED);
     }
 
     @PutMapping
-    public void updateProduct(@RequestBody ProductRequestDTO productRequestDTO) {
-        productService.updateProduct(productRequestDTO);
+    public ResponseEntity<String> updateProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+        return new ResponseEntity<>(productService.updateProduct(productRequestDTO), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{productCode}/availability")
+    public ResponseEntity<Boolean> checkProductAvailability(@PathVariable String productCode) {
+        boolean isAvailable = productService.checkProductAvailability(productCode);
+        return ResponseEntity.ok(isAvailable);
     }
 }
