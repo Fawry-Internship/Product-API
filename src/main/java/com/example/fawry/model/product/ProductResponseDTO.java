@@ -16,9 +16,9 @@ public class ProductResponseDTO {
     private String name;
     private String description;
     private Double price;
-    private String category_name;
+    private String categoryName;
     private String brand;
-    private String image_url;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private String imageUrl;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 }

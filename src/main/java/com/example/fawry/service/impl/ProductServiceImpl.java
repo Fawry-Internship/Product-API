@@ -56,14 +56,14 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Product newProduct = productMapper.toEntity(productRequestDTO);
-        Optional<Category> categoryByName = categoryService.getCategoryByName(productRequestDTO.getCategory_name());
+        Optional<Category> categoryByName = categoryService.getCategoryByName(productRequestDTO.getCategoryName());
         if (!categoryByName.isPresent()){
-            log.error("This Category with name: {}, Not Exist!", productRequestDTO.getCategory_name());
+            log.error("This Category with name: {}, Not Exist!", productRequestDTO.getCategoryName());
             throw new RecordNotFoundException("This Category Not Exist!");
         }
         newProduct.setCategory(categoryByName.get());
-        newProduct.setCreated_at(LocalDate.now());
-        newProduct.setUpdated_at(LocalDate.now());
+        newProduct.setCreatedAt(LocalDate.now());
+        newProduct.setUpdatedAt(LocalDate.now());
 
         productRepository.save(newProduct);
         log.info("This new Product added successFully :{}", newProduct);
@@ -88,13 +88,13 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(productRequestDTO.getPrice());
         }
 
-        if(productRequestDTO.getImage_url() != null && !Objects.equals(product.getImage_url(),productRequestDTO.getImage_url())){
-            product.setImage_url(productRequestDTO.getImage_url());
+        if(productRequestDTO.getImageUrl() != null && !Objects.equals(product.getImageUrl(),productRequestDTO.getImageUrl())){
+            product.setImageUrl(productRequestDTO.getImageUrl());
         }
 
-        Optional<Category> categoryByName = categoryService.getCategoryByName(productRequestDTO.getCategory_name());
+        Optional<Category> categoryByName = categoryService.getCategoryByName(productRequestDTO.getCategoryName());
         if (!categoryByName.isPresent()){
-            log.error("This Category with name: {}, Not Exist!", productRequestDTO.getCategory_name());
+            log.error("This Category with name: {}, Not Exist!", productRequestDTO.getName());
             throw new RecordNotFoundException("This Category Not Exist!");
         }
 
@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
         product.setName(productRequestDTO.getName());
         product.setDescription(productRequestDTO.getDescription());
         product.setCategory(categoryByName.get());
-        product.setUpdated_at(LocalDate.now());
+        product.setUpdatedAt(LocalDate.now());
 
         productRepository.save(product);
         log.info("Product has been updated successfully:{}", product);

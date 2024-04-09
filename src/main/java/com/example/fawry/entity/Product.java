@@ -23,9 +23,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
     private String brand;
-    private String image_url;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private String imageUrl;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
 
 }
