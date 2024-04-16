@@ -113,4 +113,16 @@ public class ProductServiceImpl implements ProductService {
     public boolean checkProductAvailability(String productCode) {
         return productRepository.existsByCode(productCode);
     }
+
+    @Override
+    public ProductResponseDTO findProductById(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> {
+                    log.error("This product with id {} doesn't exist", productId);
+                    return new RecordNotFoundException("This product with id "+ productId + "doesn't exist!");
+                });
+        ProductResponseDTO  productResponseDTO = productMapper.toDTO(product);
+        log.info("product details {}", productResponseDTO);
+        return productResponseDTO;
+    }
 }

@@ -44,4 +44,9 @@ public class ProductController {
         boolean isAvailable = productService.checkProductAvailability(productCode);
         return ResponseEntity.ok(isAvailable);
     }
+
+    @GetMapping("{productId}")
+    public ResponseEntity<ProductResponseDTO> findProductById(@PathVariable Long productId) {
+        return ResponseEntity.ok(productService.findProductById(productId));
+    }
 }

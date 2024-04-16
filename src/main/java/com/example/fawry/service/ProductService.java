@@ -14,4 +14,6 @@ public interface ProductService {
     String updateProduct(ProductRequestDTO productRequestDTO);
 
     boolean checkProductAvailability(String productCode);
+
+    ProductResponseDTO findProductById(Long productId);
 }
